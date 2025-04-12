@@ -8,11 +8,11 @@ const ContentContainer = styled.div<{ $messageCount: number }>`
   justify-content: center;
   padding: 50px;
   margin: 0 auto;
-  width: ${(props) => (props.$messageCount === 0 ? "100%" : "50%")};
+  width: ${(props) => (props.$messageCount === 0 ? "100%" : "60%")};
   transition: width 0.5s;
 
   img {
-    height: ${(props) => (props.$messageCount === 0 ? "70%" : "60%")};
+    height: ${(props) => (props.$messageCount === 0 ? "70%" : "50%")};
   }
 `;
 
