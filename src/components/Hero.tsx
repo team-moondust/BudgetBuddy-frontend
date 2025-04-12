@@ -15,7 +15,7 @@ const ContentContainer = styled.div<{
       top: 0px;
     }
     50% {
-      top: -10px;
+      top: -20px;
     }
     100% {
       top: 0px;

@@ -9,7 +9,7 @@
 }
 
 * {
-  font-family: "Overpass", sans-serif;
+  font-family: "Rosario", sans-serif;
   scroll-behavior: smooth;
   color: var(--dark);
 }
@@ -30,7 +30,6 @@
 
 .box.lifted {
   padding: 20px;
-  border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -41,7 +40,6 @@ input {
 input,
 button {
   border: 1px solid var(--dark);
-  border-radius: 5px;
   padding: 5px 10px;
   display: flex;
 }
@@ -63,4 +61,23 @@ hr {
   border: none;
   background: none;
   border-bottom: 1px dashed var(--dark);
+}
+
+/* WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dark);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark) var(--light);
 }

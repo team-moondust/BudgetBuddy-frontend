@@ -25,10 +25,8 @@ export function ChatInput() {
   );
 
   const handleSendMessage = useCallback(() => {
-    chatStore.sendMessage({
-      role: "user",
-      content: currentMessage,
-    });
+    if (currentMessage === "") return;
+    chatStore.sendMessage(currentMessage);
     setCurrentMessage("");
   }, [currentMessage]);
 
@@ -38,7 +36,7 @@ export function ChatInput() {
         value={currentMessage}
         onChange={handleMessageChange}
         type="text"
-        placeholder="talk to me lil bro"
+        placeholder="Ask me anything!"
       />
       <button disabled={chatStore.isPending} onClick={handleSendMessage}>
         <span className="material-symbols-rounded">send</span>

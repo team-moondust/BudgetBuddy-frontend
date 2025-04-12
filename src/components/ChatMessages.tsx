@@ -1,16 +1,22 @@
 import styled from "styled-components";
-import { useChatStore } from "../store";
+import { useAuthStore, useChatStore } from "../store";
 import { useEffect, useRef } from "react";
 
 const ChatMessagesContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   overflow-y: auto;
-  gap: 10px;
+  gap: 20px;
+
+  .message > b {
+    font-size: 1.125rem;
+  }
 `;
 
 export function ChatMessages() {
+  const authStore = useAuthStore();
   const chatStore = useChatStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,8 +27,8 @@ export function ChatMessages() {
   return (
     <ChatMessagesContainer ref={containerRef}>
       {chatStore.messages.map((message) => (
-        <div key={Math.random()}>
-          <b>{message.role}</b>
+        <div className="message" key={Math.random()}>
+          <b>{message.role === 'user' ? authStore.name : 'Buddy'}</b>
           <p>{message.content}</p>
         </div>
       ))}
