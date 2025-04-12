@@ -1,6 +1,21 @@
 import styled from "styled-components";
 import { useAuthStore } from "../store";
 
+function getTimeGreeting(name: string) {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return `Good morning, ${name}!`;
+  } else if (hour >= 12 && hour < 17) {
+    return `Good afternoon, ${name}!`;
+  } else if (hour >= 17 && hour < 22) {
+    return `Good night, ${name}!`;
+  } else {
+    return `Up so late, ${name}?`;
+  }
+}
+
 const NavContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -31,7 +46,7 @@ export function Nav() {
       <div className="logout">
         {authStore.isLoggedIn && (
           <>
-            <span>Hey, {authStore.name}!</span>
+            <span>{getTimeGreeting(authStore.name)}</span>
             <span className="icon material-symbols-rounded">logout</span>
           </>
         )}
