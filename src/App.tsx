@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { Hero } from "./components/Hero";
 import { Nav } from "./components/Nav";
 import { ChatInput } from "./components/ChatInput";
-import { useChatStore } from "./store";
 import { ChatMessages } from "./components/ChatMessages";
+import "./notifications";
 
 const Root = styled.main`
   position: absolute;
