@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { api } from "./api";
 
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
+// const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 interface IMessage {
   role: "user" | "model";
