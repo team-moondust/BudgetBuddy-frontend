@@ -6,13 +6,21 @@ import { useChatStore } from "../store";
 const ContentContainer = styled.div<{ $messageCount: number }>`
   display: flex;
   justify-content: center;
-  padding: 50px;
-  margin: 0 auto;
-  width: ${(props) => (props.$messageCount === 0 ? "100%" : "60%")};
-  transition: width 0.5s;
+
+  .progress-bar-container {
+    width: ${(props) => (props.$messageCount === 0 ? "350px" : "175px")};
+    transition: width 0.5s;
+  }
 
   img {
-    height: ${(props) => (props.$messageCount === 0 ? "70%" : "50%")};
+    height: 60%;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    transition: height 0.5s;
+  }
+
+  .logo {
+    font-size: ${(props) => (props.$messageCount === 0 ? "1.25rem" : "1rem")};
+    transition: font-size 0.5s;
   }
 `;
 
@@ -21,15 +29,17 @@ export function Hero() {
 
   return (
     <div>
-      <ContentContainer $messageCount={chatStore.messages.length}>
-        <CircularProgressbarWithChildren value={60} maxValue={100}>
-          <img src="/test.png" alt="tomygothi" />
-          <b>60%</b>
-        </CircularProgressbarWithChildren>
+      <ContentContainer
+        className="box"
+        $messageCount={chatStore.messages.length}
+      >
+        <div className="progress-bar-container">
+          <CircularProgressbarWithChildren value={60} maxValue={100}>
+            <img src="/test.png" alt="tomygothi" />
+            <b className="logo">60%</b>
+          </CircularProgressbarWithChildren>
+        </div>
       </ContentContainer>
-      <div style={{ textAlign: "center" }}>
-        js hand me the friggin packet yo
-      </div>
     </div>
   );
 }

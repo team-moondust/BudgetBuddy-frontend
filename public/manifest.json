@@ -1,6 +1,6 @@
 {
-  "name": "My App",
-  "short_name": "App",
+  "name": "BudgetBuddy",
+  "short_name": "BudgetBuddy",
   "start_url": "/",
   "display": "fullscreen",
   "background_color": "#ffffff",

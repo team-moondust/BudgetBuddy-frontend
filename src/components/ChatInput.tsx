@@ -11,11 +11,6 @@ const ChatInputContainer = styled.div`
   input {
     flex: auto;
   }
-
-  input,
-  button {
-    padding: 5px;
-  }
 `;
 
 export function ChatInput() {
@@ -46,7 +41,7 @@ export function ChatInput() {
         placeholder="talk to me lil bro"
       />
       <button disabled={chatStore.isPending} onClick={handleSendMessage}>
-        dont pmo
+        <span className="material-symbols-rounded">send</span>
       </button>
     </ChatInputContainer>
   );
