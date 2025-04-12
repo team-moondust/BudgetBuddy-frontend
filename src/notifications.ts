@@ -19,7 +19,7 @@ window.addEventListener(
   async () => {
     await window.__deferredPwaPrompt?.prompt();
     await Notification.requestPermission();
-    spawnNotification();
+    setTimeout(() => spawnNotification(), 3000);
   },
   {
     once: true,
