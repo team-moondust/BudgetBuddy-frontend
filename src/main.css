@@ -58,3 +58,9 @@ button * {
 button:disabled, input:disabled {
   opacity: 0.75;
 }
+
+hr {
+  border: none;
+  background: none;
+  border-bottom: 1px dashed var(--dark);
+}

@@ -9,8 +9,10 @@ import {
   RouterProvider,
 } from "@tanstack/react-router";
 import { Dashboard } from "./routes/Dashboard";
+import { Auth } from "./routes/Auth";
 
 const Root = styled.main`
+  padding: 10px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -42,6 +44,11 @@ const router = createRouter({
       getParentRoute: () => rootRoute,
       path: "/dashboard",
       component: Dashboard,
+    }),
+    createRoute({
+      getParentRoute: () => rootRoute,
+      path: "/auth",
+      component: Auth,
     }),
   ]),
 });
