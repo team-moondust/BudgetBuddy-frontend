@@ -6,15 +6,25 @@ interface IMessage {
 }
 
 interface ChatState {
+  isPending: boolean;
   messages: IMessage[];
   sendMessage(newMessage: IMessage): void;
 }
 
-const useChatStore = create<ChatState>((set) => ({
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+export const useChatStore = create<ChatState>((set) => ({
   messages: [],
-  sendMessage: (newMessage: IMessage) =>
+  isPending: false,
+  sendMessage: async (newMessage: IMessage) => {
     set((state) => ({
       ...state,
+      isPending: true,
       messages: [...state.messages, newMessage],
-    })),
+    }));
+
+    await wait(1000);
+
+    set((state) => ({ ...state, isPending: false }));
+  },
 }));
