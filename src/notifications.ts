@@ -6,7 +6,6 @@ interface BeforeInstallPromptEvent extends Event {
   }>;
 }
 
-const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 let deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
 
 // Capture the install prompt event
