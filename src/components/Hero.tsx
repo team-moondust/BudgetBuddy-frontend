@@ -1,7 +1,4 @@
-import {
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import styled from "styled-components";
 import "react-circular-progressbar/dist/styles.css";
 import { useChatStore } from "../store";
