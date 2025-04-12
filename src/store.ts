@@ -41,7 +41,7 @@ Transaction id: txn_f52d41 Vendor: Whole Foods Purchase date: 2025-03-07 23:49, 
       chat: newMessage,
       history: get().messages.map((m) => ({
         role: m.role,
-        parts: [{ text: newMessage }],
+        parts: [{ text: m.content }],
       })),
       recent_spends,
       big_spends,

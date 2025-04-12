@@ -26,7 +26,7 @@ export function Dashboard() {
           overflow: "hidden",
         }}
       >
-        <div className={classNames(chatStore.messages.length > 0 && "box lifted")} style={{ overflow: "hidden" }}>
+        <div className={classNames(chatStore.messages.length > 0 && "box lifted")} style={{ overflowY: "auto" }}>
           <div style={{ textAlign: "center", fontSize: "1.25rem" }}>
             {authStore.name}! You're doing great!
           </div>
