@@ -1,0 +1,15 @@
+{
+  "name": "My App",
+  "short_name": "App",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#317EFB",
+  "icons": [
+    {
+      "src": "/test.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
