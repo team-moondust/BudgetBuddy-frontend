@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import { Hero } from "./components/Hero";
 import { Nav } from "./components/Nav";
-import { ChatInput } from "./components/ChatInput";
-import { ChatMessages } from "./components/ChatMessages";
 import "./notifications";
+import {
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+  RouterProvider,
+} from "@tanstack/react-router";
+import { Dashboard } from "./routes/Dashboard";
 
 const Root = styled.main`
   position: absolute;
@@ -18,22 +23,29 @@ const Root = styled.main`
   overflow: hidden;
 `;
 
-export function App() {
+function RouterRoot() {
   return (
     <Root>
       <Nav />
-      <Hero />
-      <div
-        className="box"
-        style={{ flex: "auto", display: "flex", flexDirection: "column" }}
-      >
-        <div style={{ textAlign: "center", fontSize: "1.25rem" }}>
-          Marvin! You're doing great!
-        </div>
-        <ChatMessages />
-        <div style={{ flex: "auto" }}></div>
-        <ChatInput />
-      </div>
+      <Outlet />
     </Root>
   );
+}
+
+const rootRoute = createRootRoute({
+  component: RouterRoot,
+});
+
+const router = createRouter({
+  routeTree: rootRoute.addChildren([
+    createRoute({
+      getParentRoute: () => rootRoute,
+      path: "/dashboard",
+      component: Dashboard,
+    }),
+  ]),
+});
+
+export function App() {
+  return <RouterProvider router={router} />;
 }
