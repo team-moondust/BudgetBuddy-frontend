@@ -26,10 +26,7 @@ const TabsContainer = styled.div`
 
   .tab * {
     color: var(--light);
-  }
-
-  .tab .logo {
-    font-size: 0.875rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -209,15 +206,12 @@ export function Dashboard() {
       <TabsContainer>
         <button className="tab" onClick={() => setTab("dashboard")}>
           <span className="material-symbols-rounded">home</span>
-          <span className="logo">Dashboard</span>
         </button>
         <button className="tab" onClick={() => setTab("transactions")}>
           <span className="material-symbols-rounded">payments</span>
-          <span className="logo">Transactions</span>
         </button>
         <button className="tab" onClick={() => setTab("settings")}>
           <span className="material-symbols-rounded">settings_heart</span>
-          <span className="logo">Settings</span>
         </button>
       </TabsContainer>
     </>
