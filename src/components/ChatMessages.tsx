@@ -13,7 +13,7 @@ const ChatMessagesContainer = styled.div`
   overflow-y: auto;
   gap: 20px;
 
-  .message > b {
+  .message > span {
     font-size: 1.125rem;
   }
 `;
@@ -31,7 +31,9 @@ export function ChatMessages() {
     <ChatMessagesContainer ref={containerRef}>
       {chatStore.messages.map((message) => (
         <div className="message" key={Math.random()}>
-          <b>{message.role === "user" ? authStore.user.name : "Buddy"}</b>
+          <span className="logo">
+            {message.role === "user" ? authStore.user.name : "Your Buddy"}
+          </span>
           <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
         </div>
       ))}

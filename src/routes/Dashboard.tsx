@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { installAppAndSetupNotifications } from "../appPushConfig";
 import { useChatStore } from "../stores/chat";
+import { Tabs } from "../components/Tabs";
 
 export function Dashboard() {
   const authStore = useAuthStore();
@@ -49,6 +50,7 @@ export function Dashboard() {
         <div style={{ flex: "auto" }}></div>
         <ChatInput />
       </div>
+      <Tabs />
     </>
   );
 }

@@ -63,7 +63,7 @@ export function Auth() {
       </div>
       {!isLogin && (
         <div className="input-group">
-          <b>Your Name</b>
+          <b>First Name</b>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
