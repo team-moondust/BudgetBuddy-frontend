@@ -11,8 +11,6 @@ import { useUserDataStore } from "../stores/userData";
 import styled from "styled-components";
 import { TransactionCard } from "../components/TransactionCard";
 
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
 const TabsContainer = styled.div`
   padding: 10px;
   display: grid;
