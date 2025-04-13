@@ -14,7 +14,9 @@ interface ChatState {
     newMessage: string,
     response_style: string,
     budget: number,
-    goals: string
+    goals: string,
+    score: number,
+    score_reasoning: string
   ): void;
 }
 
@@ -26,7 +28,9 @@ export const useChatStore = create<ChatState>((set, get) => ({
     newMessage: string,
     response_style: string,
     budget: number,
-    goals: string
+    goals: string,
+    score: number,
+    score_reasoning: string
   ) => {
     const nextMessageRes = api<
       {
@@ -43,6 +47,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
       response_style,
       budget,
       goals,
+      score,
+      score_reasoning,
     });
 
     set((state) => ({

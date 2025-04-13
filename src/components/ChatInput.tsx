@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useChatStore } from "../stores/chat";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useAuthStore } from "../stores/auth";
+import { useUserDataStore } from "../stores/userData";
 
 const ChatInputContainer = styled.div`
   padding: 10px;
@@ -17,6 +18,7 @@ const ChatInputContainer = styled.div`
 export function ChatInput() {
   const authStore = useAuthStore();
   const chatStore = useChatStore();
+  const userDataStore = useUserDataStore();
   const [currentMessage, setCurrentMessage] = useState("");
 
   const handleMessageChange = useCallback(
@@ -27,13 +29,22 @@ export function ChatInput() {
   );
 
   const handleSendMessage = useCallback(() => {
-    if (currentMessage === "" || !authStore.isLoggedIn) return;
+    if (
+      currentMessage === "" ||
+      !authStore.isLoggedIn ||
+      userDataStore.startupData == null
+    ) {
+      return;
+    }
+
     chatStore.sendMessage(
       authStore.user.email,
       currentMessage,
       authStore.user.response_style,
       authStore.user.monthly_budget,
-      authStore.user.goals
+      authStore.user.goals,
+      userDataStore.startupData.final_score,
+      userDataStore.startupData.score_explanation
     );
     setCurrentMessage("");
   }, [currentMessage]);

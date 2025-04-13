@@ -9,3 +9,10 @@ declare interface BeforeInstallPromptEvent extends Event {
     platform: string;
   }>;
 }
+
+declare interface Transaction {
+  _id: string;
+  description: string;
+  purchase_date: string;
+  amount: number;
+}
