@@ -1,13 +1,13 @@
 export async function api<Res extends object, Req extends object>(
   method: "GET" | "POST",
   endpoint: string,
-  payload: Req
+  payload?: Req
 ) {
   const fetchRes = await fetch(
     `${import.meta.env.VITE_API_URL}/api${endpoint}`,
     {
       method,
-      body: JSON.stringify(payload),
+      body: payload == null ? undefined : JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
       },

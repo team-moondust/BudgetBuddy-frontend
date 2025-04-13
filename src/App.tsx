@@ -13,7 +13,6 @@ import { Auth } from "./routes/Auth";
 import { Onboarding } from "./routes/Onboarding";
 
 const Root = styled.main`
-  padding: 10px;
   position: absolute;
   top: 0;
   bottom: 0;

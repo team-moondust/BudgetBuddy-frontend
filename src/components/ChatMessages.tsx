@@ -37,6 +37,12 @@ export function ChatMessages() {
           <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
         </div>
       ))}
+      {chatStore.isPending && (
+        <div className="message" key="newmsg">
+          <span className="logo">Your Buddy</span>
+          <p>Let me cook... 🧑‍🍳</p>
+        </div>
+      )}
     </ChatMessagesContainer>
   ) : null;
 }

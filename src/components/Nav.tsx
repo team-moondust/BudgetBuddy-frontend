@@ -18,10 +18,11 @@ function getTimeGreeting(name: string) {
   }
 }
 
-const NavContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+const NavContainer = styled.div<{ $justifyContent: string }>`
+  display: flex;
+  justify-content: ${(props) => props.$justifyContent};
   align-items: center;
+  border-bottom: 1px solid var(--dark);
 
   .logo {
     font-size: 1.125rem;
@@ -49,18 +50,21 @@ export function Nav() {
   }, [authStore.logout, navigate]);
 
   return (
-    <NavContainer className="box lifted">
+    <NavContainer
+      $justifyContent={authStore.isLoggedIn ? "space-between" : "center"}
+      className="box"
+    >
       <div className="logo">BudgetBuddy</div>
-      <div className="logout">
-        {authStore.isLoggedIn && (
+      {authStore.isLoggedIn && (
+        <div className="logout">
           <>
             <span>{getTimeGreeting(authStore.user.name)}</span>
             <span onClick={logout} className="icon material-symbols-rounded">
               logout
             </span>
           </>
-        )}
-      </div>
+        </div>
+      )}
     </NavContainer>
   );
 }

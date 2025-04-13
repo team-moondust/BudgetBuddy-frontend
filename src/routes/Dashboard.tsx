@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { installAppAndSetupNotifications } from "../appPushConfig";
 import { useChatStore } from "../stores/chat";
 import { Tabs } from "../components/Tabs";
+import { useUserDataStore } from "../stores/userData";
 
 export function Dashboard() {
   const authStore = useAuthStore();
   const chatStore = useChatStore();
+  const userDataStore = useUserDataStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ export function Dashboard() {
       navigate({ to: "/onboarding" });
     } else if (authStore.isLoggedIn) {
       installAppAndSetupNotifications(authStore.user.name);
+      userDataStore.fetchStartupData(authStore.user.email, authStore.user.monthly_budget);
     }
   }, []);
 
@@ -39,11 +42,11 @@ export function Dashboard() {
         }}
       >
         <div
-          className={classNames(chatStore.messages.length > 0 && "box lifted")}
+          className={classNames(chatStore.messages.length > 0 && "box")}
           style={{ overflowY: "auto" }}
         >
           <div style={{ textAlign: "center", fontSize: "1.25rem" }}>
-            {authStore.user.name}! You're doing great!
+            {userDataStore.startupData?.startup_msg ?? "Loading..."}
           </div>
           <ChatMessages />
         </div>

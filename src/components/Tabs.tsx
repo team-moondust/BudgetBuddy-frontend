@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const TabsContainer = styled.div`
   padding: 10px;
-  margin: -10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   background: var(--dark);
