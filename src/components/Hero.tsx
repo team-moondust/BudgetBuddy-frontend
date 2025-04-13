@@ -3,7 +3,7 @@ import styled from "styled-components";
 import "react-circular-progressbar/dist/styles.css";
 import { useChatStore } from "../stores/chat";
 import { useUserDataStore } from "../stores/userData";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { useAuthStore } from "../stores/auth";
 import { PET_0, PET_1 } from "../image_urls";
 
