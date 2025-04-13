@@ -23,11 +23,11 @@ export function Index() {
             style={{ maxHeight: "200px", marginLeft: "auto" }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <h1 className="logo" style={{ fontSize: "2.5rem" }}>
+        <div className="text-section" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <h1 className="logo">
             BudgetBuddy
           </h1>
-          <p style={{ fontSize: "1.25rem" }}>
+          <p>
             Because your finances deserve a little fun.
           </p>
 

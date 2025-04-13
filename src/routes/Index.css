@@ -2,11 +2,32 @@
   display: flex;
   gap: 20px;
   margin: 0 auto;
+  padding: 10px;
+}
+
+.landing-root h1 {
+  font-size: 2.5rem;
+}
+
+.landing-root p {
+  font-size: 1.25rem;
 }
 
 @media screen and (max-width: 700px) {
   .landing-root {
     flex-direction: column;
     align-items: center;
+  }
+
+  .landing-root .text-section {
+    align-items: center;
+  }
+  
+  .landing-root h1 {
+    font-size: 2rem;
+  }
+
+  .landing-root p {
+    font-size: 1rem;
   }
 }
