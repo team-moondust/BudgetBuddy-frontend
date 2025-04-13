@@ -75,7 +75,7 @@ export function Hero() {
           >
             {imageUrl != null && <img src={imageUrl} alt="tomygothi" />}
             <b className="logo">
-              {userDataStore.startupData?.final_score
+              {userDataStore.startupData != null 
                 ? userDataStore.startupData?.final_score + "%"
                 : "..."}
             </b>

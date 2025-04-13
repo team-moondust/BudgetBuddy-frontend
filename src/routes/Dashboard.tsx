@@ -4,13 +4,14 @@ import { ChatMessages } from "../components/ChatMessages";
 import { Hero } from "../components/Hero";
 import { useAuthStore } from "../stores/auth";
 import classNames from "classnames";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { installAppAndSetupNotifications } from "../appPushConfig";
 import { useChatStore } from "../stores/chat";
 import { useUserDataStore } from "../stores/userData";
 import styled from "styled-components";
 import { TransactionCard } from "../components/TransactionCard";
-import { SingleCardContainer } from "../components/SingleCardContainer";
+
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 const TabsContainer = styled.div`
   padding: 10px;
@@ -49,21 +50,24 @@ export function Dashboard() {
   const [localResponseStyle, setLocalResponseStyle] = useState("");
   const [localGoals, setLocalGoals] = useState("");
 
+  const refreshContent = (budget: number | null = null) => {
+    if (authStore.user == null) return;
+
+    installAppAndSetupNotifications(authStore.user.email);
+    userDataStore.fetchStartupData(
+      authStore.user.email,
+      budget ?? authStore.user.monthly_budget
+    );
+    userDataStore.fetchTransactions(authStore.user.email);
+  };
+
   useEffect(() => {
     if (!authStore.isLoggedIn) {
       navigate({ to: "/auth" });
     } else if (!authStore.user.onboarded) {
       navigate({ to: "/onboarding" });
     } else {
-      // setLocalBudget(authStore.user.monthly_budget);
-      // setLocalResponseStyle(authStore.user.response_style);
-      // setLocalGoals(authStore.user.goals);
-      installAppAndSetupNotifications(authStore.user.email);
-      userDataStore.fetchStartupData(
-        authStore.user.email,
-        authStore.user.monthly_budget
-      );
-      userDataStore.fetchTransactions(authStore.user.email);
+      refreshContent();
     }
   }, []);
 
@@ -75,14 +79,18 @@ export function Dashboard() {
     }
   }, [authStore.user]);
 
-  const handleSubmitSettings = () =>
-    authStore.isLoggedIn &&
-    authStore.submitOnboarding(
+  const handleSubmitSettings = async () => {
+    if (!authStore.isLoggedIn) return;
+    await authStore.submitOnboarding(
       authStore.user.pet_choice,
       localGoals,
       localResponseStyle,
       localBudget
     );
+    setTab("dashboard");
+    userDataStore.clearAllData();
+    refreshContent(localBudget);
+  };
 
   const pageContent = useMemo(() => {
     if (tab === "dashboard") {

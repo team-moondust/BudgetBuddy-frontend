@@ -13,6 +13,7 @@ interface UserDataState {
   transactions: Transaction[];
   fetchTransactions(email: string): Promise<void>;
   fetchStartupData(email: string, monthly_budget: number): Promise<boolean>;
+  clearAllData(): void;
 }
 
 export const useUserDataStore = create<UserDataState>((set) => ({
@@ -48,7 +49,11 @@ export const useUserDataStore = create<UserDataState>((set) => ({
       return false;
     }
 
+    console.log(res.res);
+
     set((state) => ({ ...state, startupData: res.res }));
     return true;
   },
+  clearAllData: () =>
+    set((state) => ({ ...state, transactions: [], startupData: null })),
 }));
