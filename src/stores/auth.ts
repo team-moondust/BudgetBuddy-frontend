@@ -136,6 +136,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
               },
             }
       );
+
+      const state = get();
+      if (state.isLoggedIn) {
+        syncLocalStorage({
+          ...state.user,
+          pet_choice,
+          goals,
+          response_style,
+          monthly_budget,
+          onboarded: true,
+        });
+      }
     }
 
     return res.success;
