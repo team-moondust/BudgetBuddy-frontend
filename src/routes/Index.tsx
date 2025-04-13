@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { SingleCardContainer } from "../components/SingleCardContainer";
 import { useAuthStore } from "../stores/auth";
 import { useEffect } from "react";
+import "./Index.css";
 
 export function Index() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function Index() {
 
   return (
     <SingleCardContainer>
-      <div style={{ display: "flex", gap: "20px", margin: "0 auto" }}>
+      <div className="landing-root">
         <div style={{ textAlign: "right" }}>
           <img
             src="/logo.png"
