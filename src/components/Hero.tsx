@@ -3,6 +3,9 @@ import styled from "styled-components";
 import "react-circular-progressbar/dist/styles.css";
 import { useChatStore } from "../stores/chat";
 import { useUserDataStore } from "../stores/userData";
+import { useCallback, useMemo } from "react";
+import { useAuthStore } from "../stores/auth";
+import { PET_0, PET_1 } from "../image_urls";
 
 const ContentContainer = styled.div<{
   $messageCount: number;
@@ -33,7 +36,8 @@ const ContentContainer = styled.div<{
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
     transition: height 0.5s;
     position: relative;
-    animation: ${(props) => (props.$isPending ? "floatUpDown 1s infinite" : "none")};
+    animation: ${(props) =>
+      props.$isPending ? "floatUpDown 1s infinite" : "none"};
   }
 
   .logo {
@@ -44,7 +48,17 @@ const ContentContainer = styled.div<{
 
 export function Hero() {
   const chatStore = useChatStore();
+  const authStore = useAuthStore();
   const userDataStore = useUserDataStore();
+
+  const imageUrl = useMemo(() => {
+    if (!authStore.isLoggedIn) return null;
+    if (userDataStore.startupData == null) return null;
+
+    return (authStore.user.pet_choice === 0 ? PET_0 : PET_1).gif(
+      userDataStore.startupData.image
+    );
+  }, [authStore.isLoggedIn, userDataStore.startupData, authStore.user?.pet_choice]);
 
   return (
     <div>
@@ -54,9 +68,16 @@ export function Hero() {
         $isPending={chatStore.isPending}
       >
         <div className="progress-bar-container">
-          <CircularProgressbarWithChildren value={userDataStore.startupData?.final_score ?? 0} maxValue={100}>
-            <img src="/test.png" alt="tomygothi" />
-            <b className="logo">{userDataStore.startupData?.final_score ?? 0}%</b>
+          <CircularProgressbarWithChildren
+            value={userDataStore.startupData?.final_score ?? 0}
+            maxValue={100}
+          >
+            {imageUrl != null && <img src={imageUrl} alt="tomygothi" />}
+            <b className="logo">
+              {userDataStore.startupData?.final_score
+                ? userDataStore.startupData?.final_score + "%"
+                : "..."}
+            </b>
           </CircularProgressbarWithChildren>
         </div>
       </ContentContainer>
