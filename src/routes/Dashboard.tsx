@@ -14,14 +14,16 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authStore.isLoggedIn) {
+    if (!authStore.isLoggedIn) {
+      navigate({ to: "/auth" });
+    } else if (!authStore.user.onboarded) {
+      navigate({ to: "/onboarding" });
+    } else if (authStore.isLoggedIn) {
       installAppAndSetupNotifications(authStore.user.name);
     }
   }, []);
 
-  if (!authStore.isLoggedIn) {
-    return navigate({ to: "/auth" });
-  }
+  if (!authStore.isLoggedIn) return null;
 
   return (
     <>

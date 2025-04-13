@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { Dashboard } from "./routes/Dashboard";
 import { Auth } from "./routes/Auth";
+import { Onboarding } from "./routes/Onboarding";
 
 const Root = styled.main`
   padding: 10px;
@@ -49,6 +50,11 @@ const router = createRouter({
       getParentRoute: () => rootRoute,
       path: "/auth",
       component: Auth,
+    }),
+    createRoute({
+      getParentRoute: () => rootRoute,
+      path: "/onboarding",
+      component: Onboarding,
     }),
   ]),
 });

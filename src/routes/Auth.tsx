@@ -1,47 +1,8 @@
 import classNames from "classnames";
 import { useCallback, useState } from "react";
-import styled from "styled-components";
 import { useAuthStore } from "../stores/auth";
 import { useNavigate } from "@tanstack/react-router";
-
-const AuthContainer = styled.div`
-  margin-top: auto;
-  margin-bottom: auto;
-  display: flex;
-  flex-direction: column;
-  height: 600px;
-  gap: 20px;
-
-  .title {
-    font-weight: normal;
-    text-align: center;
-  }
-
-  .selection-group {
-    display: flex;
-    gap: 10px;
-  }
-
-  .selection-group button {
-    flex: auto;
-    justify-content: center;
-  }
-
-  .selection-group button.selected {
-    background-color: var(--african-violet);
-  }
-
-  .input-group {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .submit-btn {
-    color: var(--dark);
-    justify-content: center;
-    background-color: var(--emerald);
-  }
-`;
+import { SingleCardContainer } from "../components/SingleCardContainer";
 
 export function Auth() {
   const navigate = useNavigate();
@@ -81,77 +42,75 @@ export function Auth() {
   }, [email, password, name, nessieId]);
 
   return (
-    <>
-      <AuthContainer className="box lifted">
-        <h1 className="title logo">
-          {isLogin ? "Login to continue!" : "Signup to continue!"}
-        </h1>
-        <hr />
-        <div className="selection-group">
-          <button
-            onClick={() => setIsLogin(true)}
-            className={classNames("logo", isLogin && "selected")}
-          >
-            Login
-          </button>
-          <button
-            onClick={() => setIsLogin(false)}
-            className={classNames("logo", !isLogin && "selected")}
-          >
-            Signup
-          </button>
-        </div>
-        {!isLogin && (
-          <div className="input-group">
-            <b>Your Name</b>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              placeholder="John Doe"
-            />
-          </div>
-        )}
-
-        <div className="input-group">
-          <b>Your Email</b>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="john.doe@example.com"
-          />
-        </div>
-
-        <div className="input-group">
-          <b>Password</b>
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="Shhhh..."
-          />
-        </div>
-
-        {!isLogin && (
-          <div className="input-group">
-            <b>Nessie Customer ID</b>
-            <input
-              value={nessieId}
-              onChange={(e) => setNessieId(e.target.value)}
-              type="text"
-              placeholder="absdfjge3ur48hrer39456tij"
-            />
-          </div>
-        )}
-
-        <div style={{ flex: "auto" }}></div>
-        <hr />
-
-        <button onClick={handleSubmit} className="submit-btn logo">
-          Let's go!
+    <SingleCardContainer className="box lifted">
+      <h1 className="title logo">
+        {isLogin ? "Login to continue!" : "Signup to continue!"}
+      </h1>
+      <hr />
+      <div className="selection-group">
+        <button
+          onClick={() => setIsLogin(true)}
+          className={classNames("logo", isLogin && "selected")}
+        >
+          Login
         </button>
-      </AuthContainer>
-    </>
+        <button
+          onClick={() => setIsLogin(false)}
+          className={classNames("logo", !isLogin && "selected")}
+        >
+          Signup
+        </button>
+      </div>
+      {!isLogin && (
+        <div className="input-group">
+          <b>Your Name</b>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="John Doe"
+          />
+        </div>
+      )}
+
+      <div className="input-group">
+        <b>Your Email</b>
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="john.doe@example.com"
+        />
+      </div>
+
+      <div className="input-group">
+        <b>Password</b>
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Shhhh..."
+        />
+      </div>
+
+      {!isLogin && (
+        <div className="input-group">
+          <b>Nessie Customer ID</b>
+          <input
+            value={nessieId}
+            onChange={(e) => setNessieId(e.target.value)}
+            type="text"
+            placeholder="absdfjge3ur48hrer39456tij"
+          />
+        </div>
+      )}
+
+      <div style={{ flex: "auto" }}></div>
+      <hr />
+
+      <button onClick={handleSubmit} className="submit-btn logo">
+        Let's go!
+      </button>
+    </SingleCardContainer>
   );
 }

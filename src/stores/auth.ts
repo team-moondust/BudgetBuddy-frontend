@@ -7,6 +7,10 @@ type User = {
   password: string;
   onboarded: boolean;
   nessie_id: string;
+  pet_choice: number;
+  goals: string;
+  response_style: string;
+  monthly_budget: number;
 };
 
 type AuthState = (
@@ -24,9 +28,15 @@ type AuthState = (
     nessie_id: string
   ): Promise<boolean>;
   logout(): void;
+  submitOnboarding(
+    pet_choice: number,
+    goals: string,
+    response_style: string,
+    monthly_budget: number
+  ): Promise<boolean>;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   isLoggedIn: false,
   user: null,
   async login(email, password) {
@@ -75,5 +85,38 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   logout() {
     set(() => ({ isLoggedIn: false, user: null }));
+  },
+  async submitOnboarding(pet_choice, goals, response_style, monthly_budget) {
+    const state = get();
+
+    if (!state.isLoggedIn) return false;
+
+    const res = await api<{ success: boolean }, any>("POST", "/onboarding", {
+      email: state.user.email,
+      pet_choice,
+      goals,
+      response_style,
+      monthly_budget,
+    });
+
+    if (res.success) {
+      set((state) =>
+        !state.isLoggedIn
+          ? state
+          : {
+              ...state,
+              user: {
+                ...state.user,
+                pet_choice,
+                goals,
+                response_style,
+                monthly_budget,
+                onboarded: true,
+              },
+            }
+      );
+    }
+
+    return res.success;
   },
 }));
