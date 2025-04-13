@@ -4,6 +4,8 @@ import { StrictMode } from "react";
 import "./reset.css";
 import "./main.css";
 
+import "./notifications";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />

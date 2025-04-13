@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useAuthStore, useChatStore } from "../store";
+import { useAuthStore } from "../stores/auth";
+import { useChatStore } from "../stores/chat";
 import { useEffect, useRef } from "react";
 
 const ChatMessagesContainer = styled.div`

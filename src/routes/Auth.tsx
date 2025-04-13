@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { useAuthStore } from "../store";
+import { useAuthStore } from "../stores/auth";
 import { useNavigate } from "@tanstack/react-router";
 
 const AuthContainer = styled.div`

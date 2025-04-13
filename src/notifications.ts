@@ -1,32 +1,8 @@
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{
-    outcome: "accepted" | "dismissed";
-    platform: string;
-  }>;
-}
-
-let deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
-
 // Capture the install prompt event
 window.addEventListener("beforeinstallprompt", (e: Event) => {
   e.preventDefault();
-  deferredInstallPrompt = e as BeforeInstallPromptEvent;
+  window.__dihferredInstallPrompt = e as BeforeInstallPromptEvent;
 });
-
-// Subscribe to push and handle install prompt on first user click
-window.addEventListener(
-  "click",
-  async () => {
-    await subscribeUser();
-
-    if (deferredInstallPrompt != null) {
-      deferredInstallPrompt.prompt();
-      deferredInstallPrompt = null;
-    }
-  },
-  { once: true }
-);
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -37,7 +13,7 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
 }
 
 // Push subscription function
-async function subscribeUser() {
+export async function subscribeUser(email: string) {
   console.log(import.meta.env.VITE_VAPID_PUBLIC_KEY);
 
   const registration = await navigator.serviceWorker.register("/worker.js");
@@ -52,6 +28,18 @@ async function subscribeUser() {
   await fetch(`${import.meta.env.VITE_NOTIFICATION_API_URL}/subscribe`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(subscription),
+    body: JSON.stringify({
+      subscription,
+      email,
+    }),
   });
+}
+
+// Install app function
+export async function installAppAndSetupNotifications(email: string) {
+  if (window.__dihferredInstallPrompt != null) {
+    await window.__dihferredInstallPrompt.prompt();
+  }
+
+  await subscribeUser(email);
 }

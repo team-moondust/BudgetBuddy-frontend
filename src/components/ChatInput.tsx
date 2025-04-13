@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useChatStore } from "../store";
+import { useChatStore } from "../stores/chat";
 import { ChangeEvent, useCallback, useState } from "react";
 
 const ChatInputContainer = styled.div`

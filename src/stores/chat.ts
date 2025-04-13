@@ -1,7 +1,5 @@
 import { create } from "zustand";
-import { api } from "./api";
-
-// const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
+import { api } from "../api";
 
 interface IMessage {
   role: "user" | "model";
@@ -60,40 +58,5 @@ Transaction id: txn_f52d41 Vendor: Whole Foods Purchase date: 2025-03-07 23:49, 
       messages: [...state.messages, { role: "model", content: llmMessage }],
       isPending: false,
     }));
-  },
-}));
-
-type AuthState = (
-  | { isLoggedIn: true; email: string; name: string; password: string }
-  | { isLoggedIn: false; email: null; name: null; password: null }
-) & {
-  login(email: string, password: string): Promise<boolean>;
-  signup(name: string, email: string, password: string): Promise<boolean>;
-};
-
-export const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
-  name: null,
-  email: null,
-  password: null,
-  async login(email, password) {
-    set((state) => ({
-      ...state,
-      isLoggedIn: true,
-      name: "Le Goat",
-      email,
-      password,
-    }));
-    return true;
-  },
-  async signup(name, email, password) {
-    set((state) => ({
-      ...state,
-      isLoggedIn: true,
-      name,
-      email,
-      password,
-    }));
-    return true;
   },
 }));
