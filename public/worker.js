@@ -20,6 +20,8 @@ self.addEventListener("push", (event) => {
 
   console.log("new message dropped...");
 
+  console.log(`/pets/pet${petChoice}_${imageId}.gif`);
+
   event.waitUntil(
     self.registration.showNotification(title, {
       body,

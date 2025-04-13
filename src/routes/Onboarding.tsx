@@ -2,6 +2,8 @@ import { useAuthStore } from "../stores/auth";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { SingleCardContainer } from "../components/SingleCardContainer";
+import { installAppAndSetupNotifications } from "../appPushConfig";
+import { HoverImage } from "../components/HoverImage";
 
 export function Onboarding() {
   const authStore = useAuthStore();
@@ -88,20 +90,22 @@ export function Onboarding() {
                 gap: "20px",
               }}
             >
-              <img
+              <HoverImage
                 style={{
                   ...imgStyle,
                   ...(petChoice === 0 && selectedImgStyle),
                 }}
                 src="/pets/pet0.webp"
+                hoverSrc="/pets/pet0_1.gif"
                 onClick={() => setPetChoice(0)}
               />
-              <img
+              <HoverImage
                 style={{
                   ...imgStyle,
                   ...(petChoice === 1 && selectedImgStyle),
                 }}
-                src="/pets/pet1.webp"
+                src="/pets/pet1.png"
+                hoverSrc="/pets/pet1_1.gif"
                 onClick={() => setPetChoice(1)}
               />
             </div>
@@ -130,6 +134,7 @@ export function Onboarding() {
   }, [onboardingPhase, goals, monthlyBudget, petChoice, responseStyle]);
 
   const handleSubmit = async () => {
+    await installAppAndSetupNotifications(authStore.user.email);
     const success = await authStore.submitOnboarding(
       petChoice,
       goals,

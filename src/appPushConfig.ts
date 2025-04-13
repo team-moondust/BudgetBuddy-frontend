@@ -4,6 +4,8 @@ window.addEventListener("beforeinstallprompt", (e: Event) => {
   window.__dihferredInstallPrompt = e as BeforeInstallPromptEvent;
 });
 
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -17,6 +19,8 @@ export async function subscribeUser(email: string) {
   console.log(import.meta.env.VITE_VAPID_PUBLIC_KEY);
 
   const registration = await navigator.serviceWorker.register("/worker.js");
+
+  await wait(100);
 
   const success = await Notification.requestPermission();
 
