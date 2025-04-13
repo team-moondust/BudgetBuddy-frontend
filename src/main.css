@@ -81,3 +81,20 @@ hr {
   scrollbar-width: thin;
   scrollbar-color: var(--dark) var(--light);
 }
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.standard-btn {
+  justify-content: center;
+  background-color: var(--african-violet);
+}
+
+.submit-btn {
+  color: var(--dark);
+  justify-content: center;
+  background-color: var(--emerald);
+}

@@ -4,12 +4,13 @@ import { ChatMessages } from "../components/ChatMessages";
 import { Hero } from "../components/Hero";
 import { useAuthStore } from "../stores/auth";
 import classNames from "classnames";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { installAppAndSetupNotifications } from "../appPushConfig";
 import { useChatStore } from "../stores/chat";
 import { useUserDataStore } from "../stores/userData";
 import styled from "styled-components";
 import { TransactionCard } from "../components/TransactionCard";
+import { SingleCardContainer } from "../components/SingleCardContainer";
 
 const TabsContainer = styled.div`
   padding: 10px;
@@ -43,12 +44,20 @@ export function Dashboard() {
     "dashboard"
   );
 
+  // settings
+  const [localBudget, setLocalBudget] = useState(0);
+  const [localResponseStyle, setLocalResponseStyle] = useState("");
+  const [localGoals, setLocalGoals] = useState("");
+
   useEffect(() => {
     if (!authStore.isLoggedIn) {
       navigate({ to: "/auth" });
     } else if (!authStore.user.onboarded) {
       navigate({ to: "/onboarding" });
-    } else if (authStore.isLoggedIn) {
+    } else {
+      // setLocalBudget(authStore.user.monthly_budget);
+      // setLocalResponseStyle(authStore.user.response_style);
+      // setLocalGoals(authStore.user.goals);
       installAppAndSetupNotifications(authStore.user.email);
       userDataStore.fetchStartupData(
         authStore.user.email,
@@ -57,6 +66,23 @@ export function Dashboard() {
       userDataStore.fetchTransactions(authStore.user.email);
     }
   }, []);
+
+  useEffect(() => {
+    if (authStore.isLoggedIn) {
+      setLocalBudget(authStore.user.monthly_budget);
+      setLocalResponseStyle(authStore.user.response_style);
+      setLocalGoals(authStore.user.goals);
+    }
+  }, [authStore.user]);
+
+  const handleSubmitSettings = () =>
+    authStore.isLoggedIn &&
+    authStore.submitOnboarding(
+      authStore.user.pet_choice,
+      localGoals,
+      localResponseStyle,
+      localBudget
+    );
 
   const pageContent = useMemo(() => {
     if (tab === "dashboard") {
@@ -103,12 +129,70 @@ export function Dashboard() {
           ))}
         </div>
       );
+    } else {
+      return (
+        <div
+          style={{
+            flex: "auto",
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+            gap: "10px",
+            padding: "10px",
+          }}
+        >
+          <div>
+            <h1 className="logo">Settings</h1>
+            <p>
+              Personalize your BudgetBuddy experience here!
+              <br />
+              (Scroll to the bottom to save changes.)
+            </p>
+          </div>
+          <hr />
+          <div className="input-group">
+            <b>Monthly Budget</b>
+            <input
+              type="number"
+              value={localBudget}
+              onChange={(e) => setLocalBudget(parseFloat(e.target.value))}
+            />
+          </div>
+          <div className="input-group">
+            <b>Your Financial Goals</b>
+            <textarea
+              value={localGoals}
+              onChange={(e) => setLocalGoals(e.target.value)}
+              style={{ resize: "none" }}
+              rows={8}
+            ></textarea>
+          </div>
+          <div className="input-group">
+            <b>Buddy Response Style</b>
+            <textarea
+              value={localResponseStyle}
+              onChange={(e) => setLocalResponseStyle(e.target.value)}
+              style={{ resize: "none" }}
+              rows={8}
+            ></textarea>
+          </div>
+
+          <hr />
+          <button onClick={handleSubmitSettings} className="submit-btn">
+            Update settings!
+          </button>
+        </div>
+      );
     }
   }, [
     chatStore.messages.length,
     userDataStore.startupData,
     userDataStore.transactions,
     tab,
+    localBudget,
+    localGoals,
+    localResponseStyle,
   ]);
 
   if (!authStore.isLoggedIn) return null;

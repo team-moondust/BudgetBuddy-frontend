@@ -27,24 +27,7 @@ export const SingleCardContainer = styled.div`
     background-color: var(--african-violet);
   }
 
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
   .input-group h3 {
     text-align: center;
-  }
-
-  .standard-btn {
-    justify-content: center;
-    background-color: var(--african-violet);
-  }
-
-  .submit-btn {
-    color: var(--dark);
-    justify-content: center;
-    background-color: var(--emerald);
   }
 `;

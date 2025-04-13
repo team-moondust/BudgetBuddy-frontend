@@ -27,6 +27,7 @@ const ContentContainer = styled.div<{
   }
 
   .progress-bar-container {
+    margin: 10px;
     width: ${(props) => (props.$messageCount === 0 ? "350px" : "175px")};
     transition: width 0.5s;
   }
