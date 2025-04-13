@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useChatStore } from "../stores/chat";
 import { ChangeEvent, useCallback, useState } from "react";
+import { useAuthStore } from "../stores/auth";
 
 const ChatInputContainer = styled.div`
   padding: 10px;
@@ -14,6 +15,7 @@ const ChatInputContainer = styled.div`
 `;
 
 export function ChatInput() {
+  const authStore = useAuthStore();
   const chatStore = useChatStore();
   const [currentMessage, setCurrentMessage] = useState("");
 
@@ -25,8 +27,8 @@ export function ChatInput() {
   );
 
   const handleSendMessage = useCallback(() => {
-    if (currentMessage === "") return;
-    chatStore.sendMessage(currentMessage);
+    if (currentMessage === "" || !authStore.isLoggedIn) return;
+    chatStore.sendMessage(currentMessage, authStore.user.response_style);
     setCurrentMessage("");
   }, [currentMessage]);
 

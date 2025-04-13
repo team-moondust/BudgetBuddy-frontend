@@ -41,13 +41,17 @@ export async function subscribeUser(email: string) {
 
 // Install app function
 export function installAppAndSetupNotifications(email: string) {
-  window.addEventListener("click", async () => {
-    try {
-      if (window.__dihferredInstallPrompt != null) {
-        await window.__dihferredInstallPrompt.prompt();
+  window.addEventListener(
+    "click",
+    async () => {
+      try {
+        if (window.__dihferredInstallPrompt != null) {
+          await window.__dihferredInstallPrompt.prompt();
+        }
+      } finally {
+        await subscribeUser(email);
       }
-    } finally {
-      await subscribeUser(email);
-    }
-  });
+    },
+    { once: true }
+  );
 }

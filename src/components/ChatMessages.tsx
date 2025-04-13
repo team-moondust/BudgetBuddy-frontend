@@ -25,14 +25,14 @@ export function ChatMessages() {
     containerRef.current?.lastElementChild?.scrollIntoView();
   }, [chatStore.messages.length]);
 
-  return (
+  return authStore.isLoggedIn ? (
     <ChatMessagesContainer ref={containerRef}>
       {chatStore.messages.map((message) => (
         <div className="message" key={Math.random()}>
-          <b>{message.role === 'user' ? authStore.name : 'Buddy'}</b>
+          <b>{message.role === "user" ? authStore.user.name : "Buddy"}</b>
           <p>{message.content}</p>
         </div>
       ))}
     </ChatMessagesContainer>
-  );
+  ) : null;
 }

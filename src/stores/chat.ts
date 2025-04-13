@@ -9,13 +9,13 @@ interface IMessage {
 interface ChatState {
   isPending: boolean;
   messages: IMessage[];
-  sendMessage(newMessage: string): void;
+  sendMessage(newMessage: string, response_style: string): void;
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
   messages: [],
   isPending: false,
-  sendMessage: async (newMessage: string) => {
+  sendMessage: async (newMessage: string, response_style: string) => {
     const recent_spends = `Transaction id: txn_09c87c Vendor: Panera Bread Purchase date: 2025-04-11 17:28, Transaction amount: 16.67
 Transaction id: txn_62463f Vendor: Panera Bread Purchase date: 2025-04-11 03:53, Transaction amount: 24.69
 Transaction id: txn_7aa2fb Vendor: Uber Purchase date: 2025-04-11 01:20, Transaction amount: 29.15
@@ -43,6 +43,7 @@ Transaction id: txn_f52d41 Vendor: Whole Foods Purchase date: 2025-03-07 23:49, 
       })),
       recent_spends,
       big_spends,
+      response_style, 
     });
 
     set((state) => ({

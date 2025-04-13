@@ -67,6 +67,8 @@ export function Onboarding() {
         border: "1px solid var(--dark)",
         transition: "border 0.25s, background 0.25s",
         cursor: "pointer",
+        margin: "0 auto",
+        maxHeight: "350px"
       };
 
       const selectedImgStyle = {

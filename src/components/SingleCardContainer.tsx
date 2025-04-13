@@ -33,6 +33,10 @@ export const SingleCardContainer = styled.div`
     gap: 5px;
   }
 
+  .input-group h3 {
+    text-align: center;
+  }
+
   .standard-btn {
     justify-content: center;
     background-color: var(--african-violet);
