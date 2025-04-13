@@ -1,6 +1,14 @@
 import { create } from "zustand";
 import { api } from "../api";
 
+function syncLocalStorage(user: User) {
+  localStorage.setItem("__user__", JSON.stringify(user));
+}
+
+function nukeLocalStorage() {
+  localStorage.removeItem("__user__");
+}
+
 type User = {
   email: string;
   name: string;
@@ -36,9 +44,17 @@ type AuthState = (
   ): Promise<boolean>;
 };
 
+let initialUser = null;
+
+try {
+  initialUser = JSON.parse(localStorage.getItem("__user__") ?? "M<<MM<#$<M#$M");
+} catch (err) {
+  initialUser = null;
+}
+
 export const useAuthStore = create<AuthState>((set, get) => ({
-  isLoggedIn: false,
-  user: null,
+  isLoggedIn: initialUser !== null,
+  user: initialUser,
   async login(email, password) {
     const res = await api<
       { success: true; user: User } | { success: false },
@@ -57,6 +73,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       isLoggedIn: true,
       user: res.user,
     }));
+
+    syncLocalStorage(res.user);
 
     return true;
   },
@@ -81,10 +99,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       user: res.user,
     }));
 
+    syncLocalStorage(res.user);
+
     return true;
   },
   logout() {
     set(() => ({ isLoggedIn: false, user: null }));
+    nukeLocalStorage();
   },
   async submitOnboarding(pet_choice, goals, response_style, monthly_budget) {
     const state = get();

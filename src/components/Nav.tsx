@@ -54,7 +54,12 @@ export function Nav() {
       $justifyContent={authStore.isLoggedIn ? "space-between" : "center"}
       className="box"
     >
-      <div className="logo">BudgetBuddy</div>
+      <div
+        className="logo"
+        style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}
+      >
+        <img style={{ height: "20px" }} src="/logo.png" /> BudgetBuddy
+      </div>
       {authStore.isLoggedIn && (
         <div className="logout">
           <>

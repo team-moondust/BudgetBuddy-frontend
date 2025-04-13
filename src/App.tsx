@@ -11,6 +11,7 @@ import {
 import { Dashboard } from "./routes/Dashboard";
 import { Auth } from "./routes/Auth";
 import { Onboarding } from "./routes/Onboarding";
+import { Index } from "./routes/Index";
 
 const Root = styled.main`
   position: absolute;
@@ -42,6 +43,11 @@ const rootRoute = createRootRoute({
 
 const router = createRouter({
   routeTree: rootRoute.addChildren([
+    createRoute({
+      getParentRoute: () => rootRoute,
+      path: "/",
+      component: Index,
+    }),
     createRoute({
       getParentRoute: () => rootRoute,
       path: "/dashboard",

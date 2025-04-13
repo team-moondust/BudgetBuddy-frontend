@@ -21,6 +21,7 @@ html, body, #root {
 
 .logo {
   font-family: "Special Gothic Expanded One", sans-serif;
+  font-weight: normal;
 }
 
 .material-symbols-rounded {

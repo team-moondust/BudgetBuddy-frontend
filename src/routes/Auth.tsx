@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuthStore } from "../stores/auth";
 import { useNavigate } from "@tanstack/react-router";
 import { SingleCardContainer } from "../components/SingleCardContainer";
@@ -40,6 +40,12 @@ export function Auth() {
       return alert(isLogin ? "Login failed. :(" : "Signup failed. :(");
     }
   }, [email, password, name, nessieId]);
+
+  useEffect(() => {
+    if (authStore.isLoggedIn) {
+      navigate({ to: "/dashboard" });
+    }
+  }, []);
 
   return (
     <SingleCardContainer className="box lifted">

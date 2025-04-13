@@ -25,6 +25,23 @@ self.addEventListener("push", (event) => {
     self.registration.showNotification(title, {
       body,
       icon: `/pets/pet${petChoice}_${image}.gif`,
+      requireInteraction: true
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  const url = event.notification.data?.url || "/";
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes(url) && "focus" in client) {
+          return client.focus();
+        }
+      }
+      return clients.openWindow(url);
     })
   );
 });
