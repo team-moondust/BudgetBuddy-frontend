@@ -5,7 +5,7 @@ import { Hero } from "../components/Hero";
 import { useAuthStore } from "../stores/auth";
 import classNames from "classnames";
 import { useEffect } from "react";
-import { installAppAndSetupNotifications } from "../notifications";
+import { installAppAndSetupNotifications } from "../appPushConfig";
 import { useChatStore } from "../stores/chat";
 
 export function Dashboard() {

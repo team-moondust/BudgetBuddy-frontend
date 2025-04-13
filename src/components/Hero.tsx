@@ -1,7 +1,7 @@
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import styled from "styled-components";
 import "react-circular-progressbar/dist/styles.css";
-import { useChatStore } from "../store";
+import { useChatStore } from "../stores/chat";
 
 const ContentContainer = styled.div<{
   $messageCount: number;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAuthStore } from "../store";
+import { useAuthStore } from "../stores/auth";
 
 function getTimeGreeting(name: string) {
   const now = new Date();

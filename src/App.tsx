@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Nav } from "./components/Nav";
-import "./notifications";
+import "./appPushConfig";
 import {
   createRootRoute,
   createRoute,
