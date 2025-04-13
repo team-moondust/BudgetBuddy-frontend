@@ -114,7 +114,7 @@ export function Onboarding() {
             className="input-group"
             style={{ flex: "auto", display: "flex", flexDirection: "column" }}
           >
-            <h3>How'd you like your buddy to communicate? (Response style)</h3>
+            <h3>How'd you like your buddy to communicate?</h3>
             <textarea
               style={{ flex: "auto", resize: "none" }}
               value={responseStyle}
