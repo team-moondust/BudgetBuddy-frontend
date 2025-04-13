@@ -28,7 +28,13 @@ export function ChatInput() {
 
   const handleSendMessage = useCallback(() => {
     if (currentMessage === "" || !authStore.isLoggedIn) return;
-    chatStore.sendMessage(authStore.user.email, currentMessage, authStore.user.response_style);
+    chatStore.sendMessage(
+      authStore.user.email,
+      currentMessage,
+      authStore.user.response_style,
+      authStore.user.monthly_budget,
+      authStore.user.goals
+    );
     setCurrentMessage("");
   }, [currentMessage]);
 

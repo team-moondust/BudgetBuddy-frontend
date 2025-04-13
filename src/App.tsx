@@ -18,11 +18,13 @@ const Root = styled.main`
   bottom: 0;
   left: 0;
   right: 0;
+  margin: 0 auto;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  max-width: 600px;
 `;
 
 function RouterRoot() {

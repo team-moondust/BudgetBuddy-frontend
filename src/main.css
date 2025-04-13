@@ -6,6 +6,11 @@
   --burnt-sienna: #de6e4bff;
 
   background: var(--light);
+  min-height: 100%;
+}
+
+html, body, #root {
+  height: 100%;
 }
 
 * {

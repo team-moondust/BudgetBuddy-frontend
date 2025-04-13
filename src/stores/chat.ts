@@ -9,13 +9,25 @@ interface IMessage {
 interface ChatState {
   isPending: boolean;
   messages: IMessage[];
-  sendMessage(email: string, newMessage: string, response_style: string): void;
+  sendMessage(
+    email: string,
+    newMessage: string,
+    response_style: string,
+    budget: number,
+    goals: string
+  ): void;
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
   messages: [],
   isPending: false,
-  sendMessage: async (email: string, newMessage: string, response_style: string) => {
+  sendMessage: async (
+    email: string,
+    newMessage: string,
+    response_style: string,
+    budget: number,
+    goals: string
+  ) => {
     const nextMessageRes = api<
       {
         text: string;
@@ -28,7 +40,9 @@ export const useChatStore = create<ChatState>((set, get) => ({
         role: m.role,
         parts: [{ text: m.content }],
       })),
-      response_style, 
+      response_style,
+      budget,
+      goals,
     });
 
     set((state) => ({
