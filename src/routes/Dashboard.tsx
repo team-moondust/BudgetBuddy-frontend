@@ -22,7 +22,7 @@ export function Dashboard() {
     } else if (!authStore.user.onboarded) {
       navigate({ to: "/onboarding" });
     } else if (authStore.isLoggedIn) {
-      installAppAndSetupNotifications(authStore.user.name);
+      installAppAndSetupNotifications(authStore.user.email);
       userDataStore.fetchStartupData(authStore.user.email, authStore.user.monthly_budget);
     }
   }, []);

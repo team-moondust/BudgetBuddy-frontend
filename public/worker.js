@@ -13,14 +13,17 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("push", (event) => {
   const data = event.data?.json() || {};
-  const title = data.title || "Notification";
-  const body = data.body || "You have a new message.";
+  const title = data.title || "BudgetBuddy";
+  const body = data.body || "New message!";
+  const imageId = data.imageId || 0;
+  const petChoice = data.petChoice || 0;
+
   console.log("new message dropped...");
 
   event.waitUntil(
     self.registration.showNotification(title, {
       body,
-      icon: "/icon.png",
+      icon: `/pets/pet${petChoice}_${imageId}.gif`,
     })
   );
 });
