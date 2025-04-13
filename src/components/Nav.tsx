@@ -4,18 +4,19 @@ import { useCallback } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
 function getTimeGreeting(name: string) {
-  const now = new Date();
-  const hour = now.getHours();
+  // const now = new Date();
+  // const hour = now.getHours();
 
-  if (hour >= 5 && hour < 12) {
-    return `Good morning, ${name}!`;
-  } else if (hour >= 12 && hour < 17) {
-    return `Good afternoon, ${name}!`;
-  } else if (hour >= 17 && hour < 22) {
-    return `Good night, ${name}!`;
-  } else {
-    return `Up so late, ${name}?`;
-  }
+  // if (hour >= 5 && hour < 12) {
+  //   return `Good morning, ${name}!`;
+  // } else if (hour >= 12 && hour < 17) {
+  //   return `Good afternoon, ${name}!`;
+  // } else if (hour >= 17 && hour < 22) {
+  //   return `Good night, ${name}!`;
+  // } else {
+  //   return `Up so late, ${name}?`;
+  // }
+  return `Hi ${name}!`
 }
 
 const NavContainer = styled.div<{ $justifyContent: string }>`
