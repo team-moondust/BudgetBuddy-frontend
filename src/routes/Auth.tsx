@@ -9,7 +9,7 @@ const AuthContainer = styled.div`
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 600px;
   gap: 20px;
 
   .title {
@@ -50,10 +50,12 @@ export function Auth() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nessieId, setNessieId] = useState("");
 
   const handleSubmit = useCallback(async () => {
     const isLoginFieldsValid = email !== "" && password !== "";
-    const isSignupFieldsValid = isLoginFieldsValid && name !== "";
+    const isSignupFieldsValid =
+      isLoginFieldsValid && name !== "" && nessieId !== "";
 
     // valid
     if (
@@ -68,7 +70,7 @@ export function Auth() {
     if (isLogin) {
       success = await authStore.login(email, password);
     } else {
-      success = await authStore.signup(name, email, password);
+      success = await authStore.signup(name, email, password, nessieId);
     }
 
     if (success) {
@@ -76,7 +78,7 @@ export function Auth() {
     } else {
       return alert(isLogin ? "Login failed. :(" : "Signup failed. :(");
     }
-  }, [email, password, name]);
+  }, [email, password, name, nessieId]);
 
   return (
     <>
@@ -130,6 +132,18 @@ export function Auth() {
             placeholder="Shhhh..."
           />
         </div>
+
+        {!isLogin && (
+          <div className="input-group">
+            <b>Nessie Customer ID</b>
+            <input
+              value={nessieId}
+              onChange={(e) => setNessieId(e.target.value)}
+              type="text"
+              placeholder="absdfjge3ur48hrer39456tij"
+            />
+          </div>
+        )}
 
         <div style={{ flex: "auto" }}></div>
         <hr />

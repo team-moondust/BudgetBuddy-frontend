@@ -15,7 +15,7 @@ export function Dashboard() {
 
   useEffect(() => {
     if (authStore.isLoggedIn) {
-      installAppAndSetupNotifications(authStore.name);
+      installAppAndSetupNotifications(authStore.user.name);
     }
   }, []);
 
@@ -40,7 +40,7 @@ export function Dashboard() {
           style={{ overflowY: "auto" }}
         >
           <div style={{ textAlign: "center", fontSize: "1.25rem" }}>
-            {authStore.name}! You're doing great!
+            {authStore.user.name}! You're doing great!
           </div>
           <ChatMessages />
         </div>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useAuthStore } from "../stores/auth";
+import { useCallback } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 function getTimeGreeting(name: string) {
   const now = new Date();
@@ -39,6 +41,12 @@ const NavContainer = styled.div`
 
 export function Nav() {
   const authStore = useAuthStore();
+  const navigate = useNavigate();
+
+  const logout = useCallback(() => {
+    authStore.logout();
+    navigate({ to: "/auth" });
+  }, [authStore.logout, navigate]);
 
   return (
     <NavContainer className="box lifted">
@@ -46,8 +54,10 @@ export function Nav() {
       <div className="logout">
         {authStore.isLoggedIn && (
           <>
-            <span>{getTimeGreeting(authStore.name)}</span>
-            <span className="icon material-symbols-rounded">logout</span>
+            <span>{getTimeGreeting(authStore.user.name)}</span>
+            <span onClick={logout} className="icon material-symbols-rounded">
+              logout
+            </span>
           </>
         )}
       </div>
